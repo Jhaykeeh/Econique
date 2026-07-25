@@ -8,6 +8,7 @@ import statusIcon from '../assets/statusicon.png';
 import notificationIcon from '../assets/notification.png';
 import userIcon from '../assets/user.png';
 import logoutIcon from '../assets/logout.png';
+import logo from '../assets/econiqueLogo.png';
 
 export default function DashboardHeader({ role = 'user' }) {
   const { user, logout } = useAuth();
@@ -52,11 +53,12 @@ export default function DashboardHeader({ role = 'user' }) {
         style={{ maxWidth: '1400px', margin: '0 auto' }}
       >
         {/* Logo */}
-        <NavLink to="/" className="flex items-center gap-2 no-underline">
+        <div className="flex items-center gap-2">
+          <img src={logo} alt="Econique" className="h-9 w-9 object-contain" />
           <span className="text-lg font-bold" style={{ color: COLORS.primary, fontFamily: FONTS.heading }}>
             EcoNique
           </span>
-        </NavLink>
+        </div>
 
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-1">
