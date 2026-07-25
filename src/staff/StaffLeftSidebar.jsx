@@ -1,27 +1,24 @@
 import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuth } from '../components/shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
+import userIcon from '../assets/user.png';
+import homeIcon from '../assets/homeicon.png';
+import postIcon from '../assets/posticon.png';
+import statusIcon from '../assets/statusicon.png';
 
 const navItems = [
-  { to: '/staff/dashboard', label: 'Overview', icon: '📰', end: true },
-  { to: '/staff/dashboard/users', label: 'Manage Users', icon: '👥' },
-  { to: '/staff/dashboard/content', label: 'Content', icon: '📄' },
-  { to: '/staff/dashboard/reports', label: 'Reports', icon: '📊' },
-  { to: '/staff/dashboard/events', label: 'Events', icon: '📅' },
+  { to: '/staff/dashboard', label: 'Overview', icon: homeIcon, end: true },
+  { to: '/staff/dashboard/users', label: 'Manage Users', icon: userIcon },
+  { to: '/staff/dashboard/content', label: 'Content', icon: postIcon },
+  { to: '/staff/dashboard/reports', label: 'Reports', icon: statusIcon },
+  { to: '/staff/dashboard/events', label: 'Events', icon: statusIcon },
 ];
 
 export default function StaffLeftSidebar() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  const { user } = useAuth();
 
   const displayName = user?.name || 'Staff Member';
-  const displayAvatar = `https://i.pravatar.cc/150?u=${user?.email || 'default'}`;
 
   const linkStyle = ({ isActive }) => ({
     display: 'flex',
@@ -50,7 +47,7 @@ export default function StaffLeftSidebar() {
         style={{ backgroundColor: COLORS.offWhite }}
       >
         <img
-          src={displayAvatar}
+          src={userIcon}
           alt={displayName}
           className="w-10 h-10 rounded-full object-cover"
         />
@@ -73,28 +70,11 @@ export default function StaffLeftSidebar() {
             end={item.end}
             style={linkStyle}
           >
-            <span>{item.icon}</span>
+            <img src={item.icon} alt="" className="w-4 h-4 object-contain" />
             {item.label}
           </NavLink>
         ))}
       </nav>
-
-      {/* Logout */}
-      <button
-        onClick={handleLogout}
-        className="flex items-center gap-2 mt-auto py-2.5 px-4 text-sm font-semibold text-white cursor-pointer border-none"
-        style={{
-          backgroundColor: COLORS.error,
-          borderRadius: RADIUS.md,
-          fontFamily: FONTS.body,
-          transition: 'opacity 0.2s',
-        }}
-        onMouseEnter={(e) => (e.target.style.opacity = '0.85')}
-        onMouseLeave={(e) => (e.target.style.opacity = '1')}
-      >
-        <span>🚪</span>
-        Logout
-      </button>
     </aside>
   );
 }

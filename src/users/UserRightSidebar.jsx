@@ -1,5 +1,6 @@
 import React from 'react';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
+import postIcon from '../assets/posticon.png';
 
 const yourPosts = [
   { id: 1, title: 'Just planted 5 trees in our neighborhood!', timestamp: '2 hours ago', likes: 24 },
@@ -40,7 +41,10 @@ export default function UserRightSidebar() {
               </p>
               <div className="flex items-center gap-3 text-xs" style={{ color: COLORS.gray }}>
                 <span>{post.timestamp}</span>
-                <span>👍 {post.likes}</span>
+                <span className="flex items-center gap-1">
+                  <img src={postIcon} alt="" className="w-3 h-3 object-contain" />
+                  {post.likes}
+                </span>
               </div>
             </div>
           ))}

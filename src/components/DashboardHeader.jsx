@@ -2,6 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from './shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from './shared/theme';
+import homeIcon from '../assets/homeicon.png';
+import postIcon from '../assets/posticon.png';
+import statusIcon from '../assets/statusicon.png';
+import notificationIcon from '../assets/notification.png';
+import userIcon from '../assets/user.png';
+import logoutIcon from '../assets/logout.png';
 
 export default function DashboardHeader({ role = 'user' }) {
   const { user, logout } = useAuth();
@@ -13,10 +19,10 @@ export default function DashboardHeader({ role = 'user' }) {
   const dashboardPath = role === 'staff' ? '/staff/dashboard' : '/dashboard';
 
   const navItems = [
-    { id: 'home', label: 'Home', icon: '🏠', path: dashboardPath },
-    { id: 'posts', label: 'Your Posts', icon: '📄', path: `${dashboardPath}/posts` },
-    { id: 'status', label: 'Post Status', icon: '✏️', path: `${dashboardPath}/status` },
-    { id: 'notifications', label: 'Notifications', icon: '🔔', path: `${dashboardPath}/notifications` },
+    { id: 'home', label: 'Home', icon: homeIcon, path: dashboardPath },
+    { id: 'posts', label: 'Your Posts', icon: postIcon, path: `${dashboardPath}/posts` },
+    { id: 'status', label: 'Post Status', icon: statusIcon, path: `${dashboardPath}/status` },
+    { id: 'notifications', label: 'Notifications', icon: notificationIcon, path: `${dashboardPath}/notifications` },
   ];
 
   useEffect(() => {
@@ -35,7 +41,6 @@ export default function DashboardHeader({ role = 'user' }) {
   };
 
   const displayName = user?.name || (role === 'staff' ? 'Staff Member' : 'User');
-  const displayAvatar = `https://i.pravatar.cc/150?u=${user?.email || 'default'}`;
 
   return (
     <header
@@ -66,7 +71,7 @@ export default function DashboardHeader({ role = 'user' }) {
                 fontFamily: FONTS.body,
               }}
             >
-              <span>{item.icon}</span>
+              <img src={item.icon} alt="" className="w-4 h-4 object-contain" />
               <span className="hidden lg:inline">{item.label}</span>
             </button>
           ))}
@@ -81,10 +86,9 @@ export default function DashboardHeader({ role = 'user' }) {
               className="p-2 border-none cursor-pointer rounded-lg transition-all"
               style={{
                 backgroundColor: activeNav === item.id ? COLORS.offWhite : 'transparent',
-                fontSize: '18px',
               }}
             >
-              {item.icon}
+              <img src={item.icon} alt={item.label} className="w-5 h-5 object-contain" />
             </button>
           ))}
         </nav>
@@ -96,9 +100,9 @@ export default function DashboardHeader({ role = 'user' }) {
             className="flex items-center gap-2 p-0 border-none bg-transparent cursor-pointer rounded-full transition-transform hover:scale-105"
           >
             <img
-              src={displayAvatar}
+              src={userIcon}
               alt={displayName}
-              className="w-9 h-9 rounded-full object-cover"
+              className="w-9 h-9 rounded-full object-contain"
             />
           </button>
 
@@ -118,9 +122,9 @@ export default function DashboardHeader({ role = 'user' }) {
                 style={{ backgroundColor: COLORS.offWhite }}
               >
                 <img
-                  src={displayAvatar}
+                  src={userIcon}
                   alt={displayName}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-contain"
                 />
                 <div className="flex flex-col">
                   <span className="text-sm font-bold" style={{ color: COLORS.black, fontFamily: FONTS.heading }}>
@@ -141,7 +145,7 @@ export default function DashboardHeader({ role = 'user' }) {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
-                <span>👤</span>
+                <img src={userIcon} alt="" className="w-4 h-4 object-contain" />
                 Profile
               </button>
               <button
@@ -150,7 +154,7 @@ export default function DashboardHeader({ role = 'user' }) {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
-                <span>⚙️</span>
+                <img src={statusIcon} alt="" className="w-4 h-4 object-contain" />
                 Settings
               </button>
 
@@ -163,7 +167,7 @@ export default function DashboardHeader({ role = 'user' }) {
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.errorLight)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
               >
-                <span>🚪</span>
+                <img src={logoutIcon} alt="" className="w-4 h-4 object-contain" />
                 Logout
               </button>
             </div>
