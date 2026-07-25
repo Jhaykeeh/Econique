@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import DashboardHeader from '../components/DashboardHeader';
 import UserLeftSidebar from './UserLeftSidebar';
 import UserRightSidebar from './UserRightSidebar';
 import UserMainContent from './UserMainContent';
@@ -42,16 +43,19 @@ function UserCommunity() {
 
 export default function UserRouter() {
   return (
-    <div className="flex min-h-screen">
-      <UserLeftSidebar />
-      <Routes>
-        <Route index element={<UserMainContent />} />
-        <Route path="profile" element={<UserProfile />} />
-        <Route path="goals" element={<UserGoals />} />
-        <Route path="activities" element={<UserActivities />} />
-        <Route path="community" element={<UserCommunity />} />
-      </Routes>
-      <UserRightSidebar />
+    <div className="min-h-screen" style={{ backgroundColor: '#F1F8E9' }}>
+      <DashboardHeader role="user" />
+      <div className="flex pt-14">
+        <UserLeftSidebar />
+        <Routes>
+          <Route index element={<UserMainContent />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="goals" element={<UserGoals />} />
+          <Route path="activities" element={<UserActivities />} />
+          <Route path="community" element={<UserCommunity />} />
+        </Routes>
+        <UserRightSidebar />
+      </div>
     </div>
   );
 }

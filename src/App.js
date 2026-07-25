@@ -12,6 +12,7 @@ import RegisterPage from './components/Pages/RegisterPage';
 
 import UserRouter from './users/UserRouter';
 
+import DashboardHeader from './components/DashboardHeader';
 import StaffLeftSidebar from './staff/StaffLeftSidebar';
 import StaffRightSidebar from './staff/StaffRightSidebar';
 import StaffMaincontent from './staff/StaffMaincontent';
@@ -24,10 +25,13 @@ import './App.css';
 
 function StaffDashboardLayout() {
   return (
-    <div className="flex min-h-screen">
-      <StaffLeftSidebar />
-      <StaffMaincontent />
-      <StaffRightSidebar />
+    <div className="min-h-screen" style={{ backgroundColor: '#F1F8E9' }}>
+      <DashboardHeader role="staff" />
+      <div className="flex pt-14">
+        <StaffLeftSidebar />
+        <StaffMaincontent />
+        <StaffRightSidebar />
+      </div>
     </div>
   );
 }
