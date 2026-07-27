@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useAuth } from '../components/shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
 import userIcon from '../assets/user.png';
+import PostCard from './PostCard';
 
 export default function UserMainContent() {
   const { user } = useAuth();
@@ -10,6 +11,7 @@ export default function UserMainContent() {
   const [modalText, setModalText] = useState('');
   const [photoPreview, setPhotoPreview] = useState(null);
   const [selectedArea, setSelectedArea] = useState('');
+  const [customArea, setCustomArea] = useState('');
   const [caption, setCaption] = useState('');
   const fileInputRef = useRef(null);
 
@@ -18,10 +20,12 @@ export default function UserMainContent() {
   const handlePost = () => {
     const text = modalText.trim();
     if (!text && !photoPreview) return;
-    setPosts([{ id: Date.now(), text, photo: photoPreview, area: selectedArea, caption: caption.trim(), time: 'Just now' }, ...posts]);
+    const area = selectedArea === 'Others' ? customArea.trim() : selectedArea;
+    setPosts([{ id: Date.now(), text, photo: photoPreview, area, caption: caption.trim(), time: 'Just now' }, ...posts]);
     setModalText('');
     setPhotoPreview(null);
     setSelectedArea('');
+    setCustomArea('');
     setCaption('');
     setShowModal(false);
   };
@@ -58,7 +62,7 @@ export default function UserMainContent() {
               className="flex-1 text-sm py-2 px-3 rounded-full"
               style={{ backgroundColor: COLORS.offWhite, color: COLORS.gray, fontFamily: FONTS.body }}
             >
-              What's on your mind?
+              Create a post
             </div>
           </div>
         </div>
@@ -68,7 +72,7 @@ export default function UserMainContent() {
           <div
             className="fixed inset-0 z-50 flex items-center justify-center"
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-                  onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCaption(''); }}
+                  onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCustomArea(''); setCaption(''); }}
           >
             <div
               className="w-full max-w-lg mx-4"
@@ -88,7 +92,7 @@ export default function UserMainContent() {
                   Create Post
                 </h3>
                 <button
-            onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCaption(''); }}
+            onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCustomArea(''); setCaption(''); }}
                   className="w-8 h-8 flex items-center justify-center border-none rounded-full cursor-pointer text-lg"
                   style={{ backgroundColor: COLORS.offWhite, color: COLORS.gray }}
                 >
@@ -111,7 +115,7 @@ export default function UserMainContent() {
                 <textarea
                   value={modalText}
                   onChange={(e) => setModalText(e.target.value)}
-                  placeholder="What's on your mind?"
+                  placeholder="Create a post"
                   autoFocus
                   rows={4}
                   className="w-full resize-none border-none outline-none text-sm p-2 rounded-lg"
@@ -139,14 +143,34 @@ export default function UserMainContent() {
                     }}
                   >
                     <option value="">Select an area</option>
-                    <option value="Recycling">Recycling</option>
-                    <option value="Energy">Energy</option>
-                    <option value="Water">Water</option>
-                    <option value="Transport">Transport</option>
-                    <option value="Food">Food</option>
-                    <option value="General">General</option>
+                    <option value="RTL">RTL</option>
+                    <option value="NGE">NGE</option>
+                    <option value="SAL">SAL</option>
+                    <option value="ALLIED">ALLIED</option>
+                    <option value="Others">Others</option>
                   </select>
                 </div>
+
+                {/* Custom Area (shown when Others is selected) */}
+                {selectedArea === 'Others' && (
+                  <div className="mt-3">
+                    <label className="text-xs font-semibold block mb-1" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                      Specify Area
+                    </label>
+                    <input
+                      type="text"
+                      value={customArea}
+                      onChange={(e) => setCustomArea(e.target.value)}
+                      placeholder="Enter area..."
+                      className="w-full border-none outline-none text-sm p-2 rounded-lg"
+                      style={{
+                        backgroundColor: COLORS.offWhite,
+                        color: COLORS.black,
+                        fontFamily: FONTS.body,
+                      }}
+                    />
+                  </div>
+                )}
 
                 {/* Add Captions */}
                 <div className="mt-3">
@@ -232,132 +256,53 @@ export default function UserMainContent() {
 
         {/* User Posts */}
         {posts.map((post) => (
-          <div
+          <PostCard
             key={post.id}
-            className="p-4 mb-4"
-            style={{
-              backgroundColor: COLORS.white,
-              borderRadius: RADIUS.lg,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-            }}
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <img
-                src={userIcon}
-                alt={displayName}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              <div>
-                <p className="text-sm font-semibold" style={{ color: COLORS.black, fontFamily: FONTS.heading }}>
-                  {displayName}
-                </p>
-                <p className="text-xs" style={{ color: COLORS.gray }}>{post.time}</p>
-              </div>
-            </div>
-            {post.text && (
-              <p className="text-sm leading-relaxed mb-3" style={{ color: COLORS.black, fontFamily: FONTS.body }}>
-                {post.text}
-              </p>
-            )}
-            {post.area && (
-              <span
-                className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2"
-                style={{ backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark, fontFamily: FONTS.body }}
-              >
-                {post.area}
-              </span>
-            )}
-            {post.caption && (
-              <p className="text-sm italic mb-3" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
-                {post.caption}
-              </p>
-            )}
-            {post.photo && (
-              <img src={post.photo} alt="Post" className="w-full rounded-lg" />
-            )}
-          </div>
+            user={displayName}
+            text={post.text}
+            area={post.area}
+            caption={post.caption}
+            photo={post.photo}
+            time={post.time}
+          />
         ))}
-        <h1
-          className="text-2xl font-bold mb-2"
-          style={{ color: COLORS.primaryDark, fontFamily: FONTS.heading }}
-        >
-          Welcome back, {user?.name || 'User'}!
-        </h1>
-        <p className="text-sm mb-8" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
-          Here's your sustainability dashboard overview.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {[
-            { title: 'Carbon Footprint', value: '2.1 tons', change: '-12% this month', color: COLORS.primary },
-            { title: 'Water Saved', value: '1,240 L', change: '+8% this month', color: COLORS.accent },
-            { title: 'Energy Efficiency', value: '87%', change: 'On track', color: COLORS.mintDark },
-          ].map((card, i) => (
-            <div
-              key={i}
-              className="p-5"
-              style={{
-                backgroundColor: COLORS.white,
-                borderRadius: RADIUS.lg,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-              }}
-            >
-              <p className="text-xs mb-1" style={{ color: COLORS.gray, fontFamily: FONTS.body }}>
-                {card.title}
-              </p>
-              <p
-                className="text-2xl font-bold"
-                style={{ color: card.color, fontFamily: FONTS.heading }}
-              >
-                {card.value}
-              </p>
-              <p className="text-xs mt-1" style={{ color: COLORS.success }}>
-                {card.change}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div
-          className="p-6"
-          style={{
-            backgroundColor: COLORS.white,
-            borderRadius: RADIUS.lg,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-          }}
-        >
-          <h3
-            className="text-lg font-semibold mb-4"
-            style={{ color: COLORS.black, fontFamily: FONTS.heading }}
-          >
-            Recent Activity
-          </h3>
-          <div className="space-y-3">
-            {[
-              { action: 'Logged a bike ride', detail: 'Saved 2.4 kg CO2', time: '2 hours ago' },
-              { action: 'Completed recycling goal', detail: '10 items recycled', time: 'Yesterday' },
-              { action: 'Joined community event', detail: 'Park clean-up crew', time: '3 days ago' },
-            ].map((activity, i) => (
-              <div
-                key={i}
-                className="flex justify-between items-center py-2 border-b"
-                style={{ borderColor: COLORS.lightGray }}
-              >
-                <div>
-                  <p className="text-sm font-medium" style={{ color: COLORS.black }}>
-                    {activity.action}
-                  </p>
-                  <p className="text-xs" style={{ color: COLORS.gray }}>
-                    {activity.detail}
-                  </p>
-                </div>
-                <span className="text-xs" style={{ color: COLORS.gray }}>
-                  {activity.time}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Mock Posts */}
+        <PostCard
+          user="Maria Santos"
+          text="Just completed our community tree planting drive! We planted 50 trees along the riverbank today."
+          area="RTL"
+          caption="Growing greener communities one tree at a time"
+          time="2 hours ago"
+        />
+        <PostCard
+          user="Juan Dela Cruz"
+          text="Switched to solar panels last month and our electricity bill dropped by 40%. Highly recommend!"
+          area="NGE"
+          caption="Best investment for the planet and your wallet"
+          photo="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600"
+          time="5 hours ago"
+        />
+        <PostCard
+          user="Ana Reyes"
+          text="Started a composting bin at home. It's easier than I thought and reduces kitchen waste significantly."
+          area="SAL"
+          caption="Small steps towards zero waste"
+          time="1 day ago"
+        />
+        <PostCard
+          user="Carlo Mendoza"
+          text="Our team organized a coastal clean-up last weekend. We collected over 200 kg of plastic waste!"
+          area="ALLIED"
+          caption="Protecting our oceans, one beach at a time"
+          time="2 days ago"
+        />
+        <PostCard
+          user="Elena Garcia"
+          text="Found an amazing local shop that sells package-free groceries. Supporting local while reducing plastic!"
+          area="Others"
+          caption="Sustainable shopping is the way to go"
+          time="3 days ago"
+        />
       </div>
     </main>
   );
