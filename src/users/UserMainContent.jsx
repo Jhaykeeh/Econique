@@ -9,6 +9,8 @@ export default function UserMainContent() {
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [selectedArea, setSelectedArea] = useState('');
+  const [caption, setCaption] = useState('');
   const fileInputRef = useRef(null);
 
   const displayName = user?.name || 'User';
@@ -16,9 +18,11 @@ export default function UserMainContent() {
   const handlePost = () => {
     const text = modalText.trim();
     if (!text && !photoPreview) return;
-    setPosts([{ id: Date.now(), text, photo: photoPreview, time: 'Just now' }, ...posts]);
+    setPosts([{ id: Date.now(), text, photo: photoPreview, area: selectedArea, caption: caption.trim(), time: 'Just now' }, ...posts]);
     setModalText('');
     setPhotoPreview(null);
+    setSelectedArea('');
+    setCaption('');
     setShowModal(false);
   };
 
@@ -64,7 +68,7 @@ export default function UserMainContent() {
           <div
             className="fixed inset-0 z-50 flex items-center justify-center"
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-            onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); }}
+                  onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCaption(''); }}
           >
             <div
               className="w-full max-w-lg mx-4"
@@ -84,7 +88,7 @@ export default function UserMainContent() {
                   Create Post
                 </h3>
                 <button
-                  onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); }}
+            onClick={() => { setShowModal(false); setPhotoPreview(null); setModalText(''); setSelectedArea(''); setCaption(''); }}
                   className="w-8 h-8 flex items-center justify-center border-none rounded-full cursor-pointer text-lg"
                   style={{ backgroundColor: COLORS.offWhite, color: COLORS.gray }}
                 >
@@ -118,6 +122,50 @@ export default function UserMainContent() {
                     fontSize: '16px',
                   }}
                 />
+
+                {/* Choose Area */}
+                <div className="mt-3">
+                  <label className="text-xs font-semibold block mb-1" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                    Choose Area
+                  </label>
+                  <select
+                    value={selectedArea}
+                    onChange={(e) => setSelectedArea(e.target.value)}
+                    className="w-full border-none outline-none text-sm p-2 rounded-lg cursor-pointer"
+                    style={{
+                      backgroundColor: COLORS.offWhite,
+                      color: selectedArea ? COLORS.black : COLORS.gray,
+                      fontFamily: FONTS.body,
+                    }}
+                  >
+                    <option value="">Select an area</option>
+                    <option value="Recycling">Recycling</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Water">Water</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Food">Food</option>
+                    <option value="General">General</option>
+                  </select>
+                </div>
+
+                {/* Add Captions */}
+                <div className="mt-3">
+                  <label className="text-xs font-semibold block mb-1" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                    Add Captions
+                  </label>
+                  <input
+                    type="text"
+                    value={caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    placeholder="Write a caption..."
+                    className="w-full border-none outline-none text-sm p-2 rounded-lg"
+                    style={{
+                      backgroundColor: COLORS.offWhite,
+                      color: COLORS.black,
+                      fontFamily: FONTS.body,
+                    }}
+                  />
+                </div>
 
                 {/* Photo preview */}
                 {photoPreview && (
@@ -209,6 +257,19 @@ export default function UserMainContent() {
             {post.text && (
               <p className="text-sm leading-relaxed mb-3" style={{ color: COLORS.black, fontFamily: FONTS.body }}>
                 {post.text}
+              </p>
+            )}
+            {post.area && (
+              <span
+                className="inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2"
+                style={{ backgroundColor: COLORS.primaryLight, color: COLORS.primaryDark, fontFamily: FONTS.body }}
+              >
+                {post.area}
+              </span>
+            )}
+            {post.caption && (
+              <p className="text-sm italic mb-3" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                {post.caption}
               </p>
             )}
             {post.photo && (
