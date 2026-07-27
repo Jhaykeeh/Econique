@@ -14,7 +14,7 @@ const yourPosts = [
 export default function UserRightSidebar() {
   return (
     <aside
-      className="w-72 p-4 flex flex-col gap-4 sticky top-14"
+      className="w-72 shrink-0 p-4 flex flex-col gap-4 sticky top-14 max-h-[calc(100vh-56px)] overflow-y-auto"
       style={{ backgroundColor: COLORS.white, borderLeft: `1px solid ${COLORS.lightGray}` }}
     >
       {/* Your Posts */}

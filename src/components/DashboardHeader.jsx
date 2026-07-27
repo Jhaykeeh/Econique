@@ -1,11 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from './shared/theme';
-import homeIcon from '../assets/homeicon.png';
-import postIcon from '../assets/posticon.png';
 import statusIcon from '../assets/statusicon.png';
-import notificationIcon from '../assets/notification.png';
 import userIcon from '../assets/user.png';
 import logoutIcon from '../assets/logout.png';
 import logo from '../assets/econiqueLogo.png';
@@ -14,17 +11,7 @@ export default function DashboardHeader({ role = 'user' }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState('home');
   const dropdownRef = useRef(null);
-
-  const dashboardPath = role === 'staff' ? '/staff/dashboard' : '/dashboard';
-
-  const navItems = [
-    { id: 'home', label: 'Home', icon: homeIcon, path: dashboardPath },
-    { id: 'posts', label: 'Your Posts', icon: postIcon, path: `${dashboardPath}/posts` },
-    { id: 'status', label: 'Post Status', icon: statusIcon, path: `${dashboardPath}/status` },
-    { id: 'notifications', label: 'Notifications', icon: notificationIcon, path: `${dashboardPath}/notifications` },
-  ];
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -49,10 +36,10 @@ export default function DashboardHeader({ role = 'user' }) {
       style={{ backgroundColor: COLORS.white, boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
     >
       <div
-        className="flex items-center justify-between h-14 px-4"
+        className="relative flex items-center justify-center h-14 px-4"
         style={{ maxWidth: '1400px', margin: '0 auto' }}
       >
-        {/* Logo */}
+        {/* Logo - Centered */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Econique" className="h-9 w-9 object-contain" />
           <span className="text-lg font-bold" style={{ color: COLORS.primary, fontFamily: FONTS.heading }}>
@@ -60,43 +47,8 @@ export default function DashboardHeader({ role = 'user' }) {
           </span>
         </div>
 
-        {/* Nav */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveNav(item.id)}
-              className="flex items-center gap-1.5 px-3 py-1.5 border-none cursor-pointer text-sm font-semibold rounded-lg transition-all"
-              style={{
-                backgroundColor: activeNav === item.id ? COLORS.offWhite : 'transparent',
-                color: activeNav === item.id ? COLORS.primary : COLORS.gray,
-                fontFamily: FONTS.body,
-              }}
-            >
-              <img src={item.icon} alt="" className="w-4 h-4 object-contain" />
-              <span className="hidden lg:inline">{item.label}</span>
-            </button>
-          ))}
-        </nav>
-
-        {/* Mobile nav - icons only */}
-        <nav className="flex md:hidden items-center gap-1">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActiveNav(item.id)}
-              className="p-2 border-none cursor-pointer rounded-lg transition-all"
-              style={{
-                backgroundColor: activeNav === item.id ? COLORS.offWhite : 'transparent',
-              }}
-            >
-              <img src={item.icon} alt={item.label} className="w-5 h-5 object-contain" />
-            </button>
-          ))}
-        </nav>
-
-        {/* Profile Dropdown */}
-        <div className="relative" ref={dropdownRef}>
+        {/* Profile Dropdown - Absolute right */}
+        <div className="absolute right-4" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             className="flex items-center gap-2 p-0 border-none bg-transparent cursor-pointer rounded-full transition-transform hover:scale-105"

@@ -6,13 +6,13 @@ import userIcon from '../assets/user.png';
 import homeIcon from '../assets/homeicon.png';
 import postIcon from '../assets/posticon.png';
 import statusIcon from '../assets/statusicon.png';
+import notificationIcon from '../assets/notification.png';
 
 const navItems = [
-  { to: '/dashboard', label: 'Overview', icon: homeIcon, end: true },
-  { to: '/dashboard/profile', label: 'Profile', icon: userIcon },
-  { to: '/dashboard/goals', label: 'Eco Goals', icon: statusIcon },
-  { to: '/dashboard/activities', label: 'Activities', icon: statusIcon },
-  { to: '/dashboard/community', label: 'Community', icon: postIcon },
+  { to: '/dashboard', label: 'Home', icon: homeIcon, end: true },
+  { to: '/dashboard/your-posts', label: 'Your Posts', icon: postIcon },
+  { to: '/dashboard/post-status', label: 'Post Status', icon: statusIcon },
+  { to: '/dashboard/notifications', label: 'Notifications', icon: notificationIcon },
 ];
 
 export default function UserLeftSidebar() {
@@ -38,7 +38,7 @@ export default function UserLeftSidebar() {
 
   return (
     <aside
-      className="w-64 min-h-screen p-4 flex flex-col sticky top-14"
+      className="w-64 shrink-0 p-4 flex flex-col sticky top-14 max-h-[calc(100vh-56px)] overflow-y-auto"
       style={{ backgroundColor: COLORS.white, borderRight: `1px solid ${COLORS.lightGray}` }}
     >
       {/* Profile Card */}

@@ -5,55 +5,47 @@ import UserLeftSidebar from './UserLeftSidebar';
 import UserRightSidebar from './UserRightSidebar';
 import UserMainContent from './UserMainContent';
 
-function UserProfile() {
+function UserYourPosts() {
   return (
     <div className="flex-1 p-6" style={{ backgroundColor: '#F1F8E9' }}>
-      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Your Profile</h2>
-      <p className="text-sm mt-2" style={{ color: '#424242' }}>Manage your account settings and preferences.</p>
+      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Your Posts</h2>
+      <p className="text-sm mt-2" style={{ color: '#424242' }}>View and manage your published posts.</p>
     </div>
   );
 }
 
-function UserGoals() {
+function UserPostStatus() {
   return (
     <div className="flex-1 p-6" style={{ backgroundColor: '#F1F8E9' }}>
-      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Eco Goals</h2>
-      <p className="text-sm mt-2" style={{ color: '#424242' }}>Set and track your sustainability targets.</p>
+      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Post Status</h2>
+      <p className="text-sm mt-2" style={{ color: '#424242' }}>Check the status of your submitted posts.</p>
     </div>
   );
 }
 
-function UserActivities() {
+function UserNotifications() {
   return (
     <div className="flex-1 p-6" style={{ backgroundColor: '#F1F8E9' }}>
-      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Activities</h2>
-      <p className="text-sm mt-2" style={{ color: '#424242' }}>Log and review your eco-friendly activities.</p>
-    </div>
-  );
-}
-
-function UserCommunity() {
-  return (
-    <div className="flex-1 p-6" style={{ backgroundColor: '#F1F8E9' }}>
-      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Community</h2>
-      <p className="text-sm mt-2" style={{ color: '#424242' }}>Connect with other eco-conscious users.</p>
+      <h2 className="text-xl font-bold" style={{ color: '#1B5E20' }}>Notifications</h2>
+      <p className="text-sm mt-2" style={{ color: '#424242' }}>Stay updated with your latest notifications.</p>
     </div>
   );
 }
 
 export default function UserRouter() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#F1F8E9' }}>
+    <div style={{ backgroundColor: '#F1F8E9' }}>
       <DashboardHeader role="user" />
-      <div className="flex pt-14">
+      <div className="flex pt-14" style={{ height: '100vh', overflow: 'hidden' }}>
         <UserLeftSidebar />
-        <Routes>
-          <Route index element={<UserMainContent />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="goals" element={<UserGoals />} />
-          <Route path="activities" element={<UserActivities />} />
-          <Route path="community" element={<UserCommunity />} />
-        </Routes>
+        <div className="flex-1 sticky top-14 max-h-[calc(100vh-56px)] overflow-y-auto">
+          <Routes>
+            <Route index element={<UserMainContent />} />
+            <Route path="your-posts" element={<UserYourPosts />} />
+            <Route path="post-status" element={<UserPostStatus />} />
+            <Route path="notifications" element={<UserNotifications />} />
+          </Routes>
+        </div>
         <UserRightSidebar />
       </div>
     </div>
