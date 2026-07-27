@@ -21,7 +21,7 @@ export default function UserMainContent() {
     const text = modalText.trim();
     if (!text && !photoPreview) return;
     const area = selectedArea === 'Others' ? customArea.trim() : selectedArea;
-    setPosts([{ id: Date.now(), text, photo: photoPreview, area, caption: caption.trim(), time: 'Just now' }, ...posts]);
+    setPosts([{ id: Date.now(), text, photo: photoPreview, area, caption: caption.trim(), status: 'Pending', time: 'Just now' }, ...posts]);
     setModalText('');
     setPhotoPreview(null);
     setSelectedArea('');
@@ -264,44 +264,55 @@ export default function UserMainContent() {
             caption={post.caption}
             photo={post.photo}
             time={post.time}
+            status={post.status}
           />
         ))}
         {/* Mock Posts */}
         <PostCard
           user="Maria Santos"
-          text="Just completed our community tree planting drive! We planted 50 trees along the riverbank today."
+          text="There's a pile of uncollected garbage near the riverside walkway. It's been here for 3 days already and it's starting to smell."
           area="RTL"
-          caption="Growing greener communities one tree at a time"
+          caption="Please send someone to clean this up ASAP"
           time="2 hours ago"
+          status="Pending"
+          initialLikes={12}
         />
         <PostCard
           user="Juan Dela Cruz"
-          text="Switched to solar panels last month and our electricity bill dropped by 40%. Highly recommend!"
+          text="The dumpster behind NGE building is overflowing. Trash is scattered all over the parking area."
           area="NGE"
-          caption="Best investment for the planet and your wallet"
-          photo="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600"
+          caption="Overflowing waste bins need immediate attention"
+          photo="https://images.unsplash.com/photo-1604187351574-c75ca79f5807?w=600"
           time="5 hours ago"
+          status="Done"
+          initialLikes={24}
         />
         <PostCard
           user="Ana Reyes"
-          text="Started a composting bin at home. It's easier than I thought and reduces kitchen waste significantly."
+          text="There are broken glass bottles and plastic waste scattered around the SAL courtyard. Could be a hazard for students."
           area="SAL"
-          caption="Small steps towards zero waste"
+          caption="Safety hazard — needs cleanup"
           time="1 day ago"
+          status="Pending"
+          initialLikes={8}
         />
         <PostCard
           user="Carlo Mendoza"
-          text="Our team organized a coastal clean-up last weekend. We collected over 200 kg of plastic waste!"
+          text="The ALLIED hallway has spilled coffee and food waste on the floor near the vending machines."
           area="ALLIED"
-          caption="Protecting our oceans, one beach at a time"
+          caption="Spilled food waste near vending area"
           time="2 days ago"
+          status="Done"
+          initialLikes={15}
         />
         <PostCard
           user="Elena Garcia"
-          text="Found an amazing local shop that sells package-free groceries. Supporting local while reducing plastic!"
+          text="There's a large amount of construction debris left near the East Wing entrance. It's blocking the walkway."
           area="Others"
-          caption="Sustainable shopping is the way to go"
+          caption="East Wing entrance — construction debris blocking path"
           time="3 days ago"
+          status="Pending"
+          initialLikes={6}
         />
       </div>
     </main>
