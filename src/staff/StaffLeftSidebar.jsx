@@ -9,7 +9,6 @@ import statusIcon from '../assets/statusicon.png';
 
 const navItems = [
   { to: '/staff/dashboard', label: 'Overview', icon: homeIcon, end: true },
-  { to: '/staff/dashboard/users', label: 'Manage Users', icon: userIcon },
   { to: '/staff/dashboard/content', label: 'Content', icon: postIcon },
   { to: '/staff/dashboard/reports', label: 'Reports', icon: statusIcon },
   { to: '/staff/dashboard/events', label: 'Events', icon: statusIcon },

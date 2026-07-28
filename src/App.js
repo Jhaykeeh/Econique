@@ -12,10 +12,7 @@ import RegisterPage from './components/Pages/RegisterPage';
 
 import UserRouter from './users/UserRouter';
 
-import DashboardHeader from './components/DashboardHeader';
-import StaffLeftSidebar from './staff/StaffLeftSidebar';
-import StaffRightSidebar from './staff/StaffRightSidebar';
-import StaffMaincontent from './staff/StaffMaincontent';
+import StaffRouter from './staff/StaffRouter';
 
 import AdminLogin from './admin/AdminLogin';
 import AdminSidebar from './admin/AdminSidebar';
@@ -24,16 +21,7 @@ import AdminMainContent from './admin/AdminMainContent';
 import './App.css';
 
 function StaffDashboardLayout() {
-  return (
-    <div className="min-h-screen" style={{ backgroundColor: '#F1F8E9' }}>
-      <DashboardHeader role="staff" />
-      <div className="flex pt-14">
-        <StaffLeftSidebar />
-        <StaffMaincontent />
-        <StaffRightSidebar />
-      </div>
-    </div>
-  );
+  return <StaffRouter />;
 }
 
 function AdminDashboardLayout() {
@@ -98,7 +86,7 @@ function App() {
             />
 
             <Route
-              path="/staff/dashboard"
+              path="/staff/dashboard/*"
               element={
                 <ProtectedRoute role="staff">
                   <StaffDashboardLayout />
