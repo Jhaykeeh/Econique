@@ -6,6 +6,8 @@ import PostCard from './PostCard';
 
 export default function UserMainContent() {
   const { user } = useAuth();
+  const displayName = user?.name || 'User';
+
   const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('');
@@ -14,8 +16,6 @@ export default function UserMainContent() {
   const [customArea, setCustomArea] = useState('');
   const [caption, setCaption] = useState('');
   const fileInputRef = useRef(null);
-
-  const displayName = user?.name || 'User';
 
   const handlePost = () => {
     const text = modalText.trim();
@@ -265,6 +265,7 @@ export default function UserMainContent() {
             photo={post.photo}
             time={post.time}
             status={post.status}
+            initialLikes={post.likes}
           />
         ))}
         {/* Mock Posts */}

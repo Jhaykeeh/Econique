@@ -8,31 +8,34 @@ const features = [
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+        <circle cx="12" cy="10" r="3" />
       </svg>
     ),
-    title: 'Eco Tracking',
-    desc: 'Monitor your carbon footprint and track your sustainability goals in real time with detailed analytics.',
+    title: 'Area-Based Reporting',
+    desc: 'Submit cleanup reports with photos and tag the exact area — RTL, NGE, SAL, ALLIED, or any location.',
   },
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
       </svg>
     ),
-    title: 'Community',
-    desc: 'Connect with like-minded individuals who share your passion for creating a greener world.',
+    title: 'Post & Caption',
+    desc: 'Create detailed posts with photos, captions, and descriptions to document environmental issues clearly.',
   },
   {
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
       </svg>
     ),
-    title: 'Resources',
-    desc: 'Access curated guides, tips, and tools for sustainable everyday living at your fingertips.',
+    title: 'Staff Review',
+    desc: 'Staff members review, manage, and resolve reports — updating status from Pending to Done in real time.',
   },
   {
     icon: (
@@ -40,15 +43,15 @@ const features = [
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
-    title: 'Impact Reports',
-    desc: 'Visualize the collective impact our community has made on reducing environmental damage.',
+    title: 'Admin Analytics',
+    desc: 'Full platform control with user management, staff oversight, system logs, and real-time analytics.',
   },
 ];
 
 const roles = [
   {
     title: 'User',
-    desc: 'Track your eco habits, report issues, and join the community.',
+    desc: 'Create posts, report cleanup issues with photos, track your report status, and like community posts.',
     path: '/login',
     btnText: 'User Login',
     icon: (
@@ -60,7 +63,7 @@ const roles = [
   },
   {
     title: 'Staff',
-    desc: 'Manage content, review reports, and oversee platform operations.',
+    desc: 'Review user-submitted reports, manage content, update report statuses, and coordinate cleanup efforts.',
     path: '/login',
     btnText: 'Staff Login',
     icon: (
@@ -72,7 +75,7 @@ const roles = [
   },
   {
     title: 'Admin',
-    desc: 'Full platform control, user management, and system administration.',
+    desc: 'Full platform control — manage users, staff, view analytics, system logs, and platform settings.',
     path: '/admin/login',
     btnText: 'Admin Login',
     icon: (
@@ -85,10 +88,10 @@ const roles = [
 ];
 
 const stats = [
-  { value: '10K+', label: 'Active Users' },
-  { value: '50K+', label: 'Reports Resolved' },
-  { value: '100+', label: 'Areas Cleaned' },
-  { value: '98%', label: 'Satisfaction Rate' },
+  { value: '5+', label: 'Campus Areas' },
+  { value: '3', label: 'User Roles' },
+  { value: '100%', label: 'Report Tracking' },
+  { value: '24/7', label: 'Platform Access' },
 ];
 
 export default function HomePage() {
@@ -128,16 +131,16 @@ export default function HomePage() {
             className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
             style={{ color: COLORS.white, fontFamily: FONTS.heading }}
           >
-            Build a <span style={{ color: COLORS.accent }}>Greener</span>{' '}
-            <br className="hidden md:block" /> Future Together
+            Report. Resolve.{' '}
+            <br className="hidden md:block" /> <span style={{ color: COLORS.accent }}>Keep Campus Clean</span>
           </h1>
 
           <p
             className="text-lg md:text-xl max-w-2xl mb-10 leading-relaxed"
             style={{ color: 'rgba(255,255,255,0.85)' }}
           >
-            Your eco-conscious platform for sustainable living. Report, track, and resolve
-            environmental issues — all in one place.
+            Report, track, and resolve environmental cleanup issues across campus areas.
+            Users report problems, staff manages resolution, admins oversee everything.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-16">
@@ -205,7 +208,7 @@ export default function HomePage() {
               Everything You Need
             </h2>
             <p className="text-base max-w-xl mx-auto" style={{ color: COLORS.gray }}>
-              Tools and features designed to make sustainability easy, trackable, and community-driven.
+              A role-based platform for reporting, managing, and resolving environmental cleanup issues across campus.
             </p>
           </div>
 
@@ -255,15 +258,15 @@ export default function HomePage() {
               className="text-3xl md:text-4xl font-bold mb-4"
               style={{ color: COLORS.primaryDark, fontFamily: FONTS.heading }}
             >
-              Simple Steps to a Greener World
+              How Cleanup Reporting Works
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { step: '01', title: 'Report', desc: 'Spot a dirty area or trash buildup? Snap a photo and submit a report with the exact location.' },
-              { step: '02', title: 'Assign', desc: 'Our staff reviews and assigns the report to the right cleanup team in the designated area.' },
-              { step: '03', title: 'Resolved', desc: 'Track the progress in real time. Once cleaned, the status updates to Done automatically.' },
+              { step: '01', title: 'Create a Post', desc: 'Spot a cleanup issue? Create a post with a photo, select the area (RTL, NGE, SAL, ALLIED), and add a caption.' },
+              { step: '02', title: 'Staff Reviews', desc: 'Staff members review all submitted posts, check the reported areas, and manage the cleanup workflow.' },
+              { step: '03', title: 'Mark as Done', desc: 'Once the issue is resolved, staff updates the status to Done. Users can track their report status in real time.' },
             ].map((item, i) => (
               <div key={i} className="relative">
                 <p
@@ -308,10 +311,10 @@ export default function HomePage() {
             className="text-3xl md:text-4xl font-bold mb-4"
             style={{ color: COLORS.white, fontFamily: FONTS.heading }}
           >
-            Ready to Make a Difference?
+            Ready to Keep Our Campus Clean?
           </h2>
           <p className="text-base mb-8 max-w-lg mx-auto" style={{ color: 'rgba(255,255,255,0.8)' }}>
-            Join thousands of users committed to building cleaner, greener communities.
+            Join the community reporting platform. Create an account and start reporting cleanup issues today.
           </p>
           <Link to="/register">
             <button
@@ -347,7 +350,7 @@ export default function HomePage() {
               Choose Your Portal
             </h2>
             <p className="text-base max-w-lg mx-auto" style={{ color: COLORS.gray }}>
-              Select your role to access the right dashboard.
+              Three roles, three dashboards. Pick the one that matches your access level.
             </p>
           </div>
 
