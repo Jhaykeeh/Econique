@@ -8,6 +8,7 @@ import UserRightSidebar from './UserRightSidebar';
 import UserMainContent from './UserMainContent';
 import UserProfilePage from './UserProfilePage';
 import UserSettingsPage from './UserSettingsPage';
+import CampusMapPage from './CampusMapPage';
 import PostCard from './PostCard';
 
 const userPosts = [
@@ -120,6 +121,7 @@ export default function UserRouter() {
             <Route index element={<UserMainContent />} />
             <Route path="your-posts" element={<UserYourPosts />} />
             <Route path="post-status" element={<UserPostStatus />} />
+            <Route path="campus-map" element={<CampusMapPage />} />
             <Route path="notifications" element={<UserNotifications />} />
             <Route path="profile" element={<UserProfilePage />} />
             <Route path="settings" element={<UserSettingsPage />} />

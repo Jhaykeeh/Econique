@@ -8,7 +8,11 @@ import HomePage from './components/Pages/HomePage';
 import AboutPage from './components/Pages/AboutPage';
 import ContactUsPage from './components/Pages/ContactUsPage';
 import LoginPage from './components/Pages/LoginPage';
+import UserLoginPage from './users/UserLoginPage';
+import StaffLoginPage from './staff/StaffLoginPage';
 import RegisterPage from './components/Pages/RegisterPage';
+import UserRegisterPage from './users/UserRegisterPage';
+import StaffRegisterPage from './staff/StaffRegisterPage';
 
 import UserRouter from './users/UserRouter';
 
@@ -71,10 +75,12 @@ function App() {
             />
 
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/user-login" element={<UserLoginPage />} />
+            <Route path="/staff-login" element={<StaffLoginPage />} />
+            <Route path="/staff/login" element={<Navigate to="/staff-login" replace />} />
             <Route path="/register" element={<RegisterPage />} />
-
-            <Route path="/staff/login" element={<Navigate to="/login" replace />} />
-            <Route path="/staff/register" element={<Navigate to="/register" replace />} />
+            <Route path="/user-registration" element={<UserRegisterPage />} />
+            <Route path="/staff-registration" element={<StaffRegisterPage />} />
 
             <Route
               path="/dashboard/*"

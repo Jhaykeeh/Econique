@@ -9,9 +9,9 @@ export function AuthProvider({ children }) {
   });
   const [role, setRole] = useState(() => localStorage.getItem('econique_role'));
 
-  const login = async (email, password, userRole, displayName) => {
+  const login = async (email, password, userRole, firstName, lastName) => {
     const mockToken = `mock-token-${userRole}-${Date.now()}`;
-    const mockUser = { email, name: displayName || email.split('@')[0], totalPosts: 0, totalLikes: 0 };
+    const mockUser = { email, firstName: firstName || email.split('@')[0], lastName: lastName || '', name: firstName && lastName ? `${firstName} ${lastName}` : (firstName || email.split('@')[0]), totalPosts: 0, totalLikes: 0 };
 
     localStorage.setItem('econique_token', mockToken);
     localStorage.setItem('econique_user', JSON.stringify(mockUser));
@@ -23,8 +23,8 @@ export function AuthProvider({ children }) {
     return { success: true };
   };
 
-  const register = async (name, email, password, userRole) => {
-    return login(email, password, userRole, name);
+  const register = async (firstName, lastName, email, password, userRole) => {
+    return login(email, password, userRole, firstName, lastName);
   };
 
   const incrementPostCount = () => {

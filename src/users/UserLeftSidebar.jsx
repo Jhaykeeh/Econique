@@ -7,11 +7,14 @@ import homeIcon from '../assets/homeicon.png';
 import postIcon from '../assets/posticon.png';
 import statusIcon from '../assets/statusicon.png';
 import notificationIcon from '../assets/notification.png';
+import settingsIcon from '../assets/settingsicon.png';
+import gpsIcon from '../assets/gps.png';
 
 const navItems = [
   { to: '/dashboard', label: 'Home', icon: homeIcon, end: true },
   { to: '/dashboard/your-posts', label: 'Your Posts', icon: postIcon },
   { to: '/dashboard/post-status', label: 'Post Status', icon: statusIcon },
+  { to: '/dashboard/campus-map', label: 'Campus Map', icon: gpsIcon },
   { to: '/dashboard/notifications', label: 'Notifications', icon: notificationIcon },
 ];
 
@@ -77,6 +80,24 @@ export default function UserLeftSidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Bottom Links */}
+      <div className="pt-2" style={{ borderTop: `1px solid ${COLORS.lightGray}` }}>
+        <NavLink
+          to="/dashboard/profile"
+          style={linkStyle}
+        >
+          <img src={userIcon} alt="" className="w-4 h-4 object-contain" />
+          Profile
+        </NavLink>
+        <NavLink
+          to="/dashboard/settings"
+          style={linkStyle}
+        >
+          <img src={settingsIcon} alt="" className="w-4 h-4 object-contain" />
+          Settings
+        </NavLink>
+      </div>
     </aside>
   );
 }

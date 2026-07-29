@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
 import userIcon from '../assets/user.png';
 import homeIcon from '../assets/homeicon.png';
 import statusIcon from '../assets/statusicon.png';
+import settingsIcon from '../assets/settingsicon.png';
 
 const navItems = [
   { to: '/staff/dashboard', label: 'Overview', icon: homeIcon, end: true },
@@ -13,6 +14,7 @@ const navItems = [
 
 export default function StaffLeftSidebar() {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const displayName = user?.name || 'Staff Member';
 
@@ -39,6 +41,7 @@ export default function StaffLeftSidebar() {
     >
       {/* Profile Card */}
       <div
+        onClick={() => navigate('/staff/dashboard/profile')}
         className="flex items-center gap-3 p-3 mb-4 cursor-pointer rounded-lg transition-colors"
         style={{ backgroundColor: COLORS.offWhite }}
       >
@@ -71,6 +74,24 @@ export default function StaffLeftSidebar() {
           </NavLink>
         ))}
       </nav>
+
+      {/* Bottom Links */}
+      <div className="pt-2" style={{ borderTop: `1px solid ${COLORS.lightGray}` }}>
+        <NavLink
+          to="/staff/dashboard/profile"
+          style={linkStyle}
+        >
+          <img src={userIcon} alt="" className="w-4 h-4 object-contain" />
+          Profile
+        </NavLink>
+        <NavLink
+          to="/staff/dashboard/settings"
+          style={linkStyle}
+        >
+          <img src={settingsIcon} alt="" className="w-4 h-4 object-contain" />
+          Settings
+        </NavLink>
+      </div>
     </aside>
   );
 }

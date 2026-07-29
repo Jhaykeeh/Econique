@@ -6,6 +6,8 @@ import DashboardHeader from '../components/DashboardHeader';
 import StaffLeftSidebar from './StaffLeftSidebar';
 import StaffRightSidebar from './StaffRightSidebar';
 import PostCard from '../users/PostCard';
+import StaffProfilePage from './StaffProfilePage';
+import StaffSettingsPage from './StaffSettingsPage';
 
 const initialPosts = [
   {
@@ -254,6 +256,8 @@ export default function StaffRouter() {
           <Routes>
             <Route index element={<StaffOverview />} />
             <Route path="reports" element={<StaffReports />} />
+            <Route path="profile" element={<StaffProfilePage />} />
+            <Route path="settings" element={<StaffSettingsPage />} />
           </Routes>
         </div>
         <StaffRightSidebar />

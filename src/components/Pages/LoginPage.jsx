@@ -7,8 +7,8 @@ import Footer from '../Footer';
 import FormInput from '../shared/FormInput';
 import Button from '../shared/Button';
 
-export default function LoginPage() {
-  const [role, setRole] = useState('user');
+export default function LoginPage({ defaultRole }) {
+  const [role, setRole] = useState(defaultRole || 'user');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -55,7 +55,7 @@ export default function LoginPage() {
         >
           <div
             className="py-5 px-6 text-center"
-            style={{ backgroundColor: COLORS.primary }}
+            style={{ backgroundColor: role === 'staff' ? COLORS.primaryDark : COLORS.primary }}
           >
             <h2
               className="text-xl font-bold text-white"
@@ -66,25 +66,27 @@ export default function LoginPage() {
           </div>
 
           <div className="p-8 bg-white">
-            <div
-              className="flex overflow-hidden mb-6"
-              style={{ borderRadius: RADIUS.md }}
-            >
-              <button
-                type="button"
-                onClick={() => setRole('user')}
-                style={toggleStyle(role === 'user')}
+            {!defaultRole && (
+              <div
+                className="flex overflow-hidden mb-6"
+                style={{ borderRadius: RADIUS.md }}
               >
-                User
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole('staff')}
-                style={toggleStyle(role === 'staff')}
-              >
-                Staff
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setRole('user')}
+                  style={toggleStyle(role === 'user')}
+                >
+                  User
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRole('staff')}
+                  style={toggleStyle(role === 'staff')}
+                >
+                  Staff
+                </button>
+              </div>
+            )}
 
             <h3
               className="text-lg font-semibold text-center mb-1"
@@ -132,7 +134,7 @@ export default function LoginPage() {
             >
               Don't have an account?{' '}
               <Link
-                to="/register"
+                to={role === 'staff' ? '/staff-registration' : '/user-registration'}
                 className="font-semibold hover:underline"
                 style={{ color: COLORS.primary }}
               >

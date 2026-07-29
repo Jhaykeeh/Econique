@@ -7,9 +7,10 @@ import Footer from '../Footer';
 import FormInput from '../shared/FormInput';
 import Button from '../shared/Button';
 
-export default function RegisterPage() {
-  const [role, setRole] = useState('user');
-  const [name, setName] = useState('');
+export default function RegisterPage({ defaultRole }) {
+  const [role, setRole] = useState(defaultRole || 'user');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,13 +21,14 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = {};
-    if (!name.trim()) errs.name = 'Name is required';
+    if (!firstName.trim()) errs.firstName = 'Firstname is required';
+    if (!lastName.trim()) errs.lastName = 'Lastname is required';
     if (!email.trim()) errs.email = 'Email is required';
     if (!password.trim()) errs.password = 'Password is required';
     if (password !== confirmPassword) errs.confirmPassword = 'Passwords do not match';
     setErrors(errs);
     if (Object.keys(errs).length === 0) {
-      await register(name, email, password, role);
+      await register(firstName.trim(), lastName.trim(), email, password, role);
       navigate(role === 'staff' ? '/staff/dashboard' : '/dashboard');
     }
   };
@@ -59,7 +61,7 @@ export default function RegisterPage() {
         >
           <div
             className="py-5 px-6 text-center"
-            style={{ backgroundColor: COLORS.primary }}
+            style={{ backgroundColor: role === 'staff' ? COLORS.primaryDark : COLORS.primary }}
           >
             <h2
               className="text-xl font-bold text-white"
@@ -70,25 +72,27 @@ export default function RegisterPage() {
           </div>
 
           <div className="p-8 bg-white">
-            <div
-              className="flex overflow-hidden mb-6"
-              style={{ borderRadius: RADIUS.md }}
-            >
-              <button
-                type="button"
-                onClick={() => setRole('user')}
-                style={toggleStyle(role === 'user')}
+            {!defaultRole && (
+              <div
+                className="flex overflow-hidden mb-6"
+                style={{ borderRadius: RADIUS.md }}
               >
-                User
-              </button>
-              <button
-                type="button"
-                onClick={() => setRole('staff')}
-                style={toggleStyle(role === 'staff')}
-              >
-                Staff
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setRole('user')}
+                  style={toggleStyle(role === 'user')}
+                >
+                  User
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRole('staff')}
+                  style={toggleStyle(role === 'staff')}
+                >
+                  Staff
+                </button>
+              </div>
+            )}
 
             <h3
               className="text-lg font-semibold text-center mb-1"
@@ -106,13 +110,22 @@ export default function RegisterPage() {
             </p>
 
             <form onSubmit={handleSubmit}>
-              <FormInput
-                label="Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your full name"
-                error={errors.name}
-              />
+              <div className="grid grid-cols-2 gap-3">
+                <FormInput
+                  label="Firstname"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Firstname"
+                  error={errors.firstName}
+                />
+                <FormInput
+                  label="Lastname"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Lastname"
+                  error={errors.lastName}
+                />
+              </div>
               <FormInput
                 label="Email"
                 type="email"
@@ -151,7 +164,7 @@ export default function RegisterPage() {
             >
               Already have an account?{' '}
               <Link
-                to="/login"
+                to={role === 'staff' ? '/staff-login' : '/user-login'}
                 className="font-semibold hover:underline"
                 style={{ color: COLORS.primary }}
               >
