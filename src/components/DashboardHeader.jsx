@@ -311,6 +311,7 @@ export default function DashboardHeader({ role = 'user' }) {
               {/* Menu Items */}
               <div className="py-1">
                 <button
+                  onClick={() => { setDropdownOpen(false); navigate(role === 'staff' ? '/staff/dashboard' : '/dashboard/profile'); }}
                   className="flex items-center gap-3 w-full px-4 py-2.5 border-none bg-transparent text-left cursor-pointer text-sm font-medium transition-all"
                   style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}
@@ -322,6 +323,7 @@ export default function DashboardHeader({ role = 'user' }) {
                   Profile
                 </button>
                 <button
+                  onClick={() => { setDropdownOpen(false); navigate(role === 'staff' ? '/staff/dashboard' : '/dashboard/settings'); }}
                   className="flex items-center gap-3 w-full px-4 py-2.5 border-none bg-transparent text-left cursor-pointer text-sm font-medium transition-all"
                   style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}

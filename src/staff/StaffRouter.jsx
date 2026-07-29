@@ -244,42 +244,6 @@ function StaffReports() {
   );
 }
 
-function StaffContent() {
-  return (
-    <main className="flex-1 p-6 overflow-y-auto" style={{ backgroundColor: COLORS.offWhite }}>
-      <div className="max-w-4xl mx-auto">
-        <h1
-          className="text-2xl font-bold mb-2"
-          style={{ color: COLORS.primaryDark, fontFamily: FONTS.heading }}
-        >
-          Content Management
-        </h1>
-        <p className="text-sm" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
-          Manage platform content and resources.
-        </p>
-      </div>
-    </main>
-  );
-}
-
-function StaffEvents() {
-  return (
-    <main className="flex-1 p-6 overflow-y-auto" style={{ backgroundColor: COLORS.offWhite }}>
-      <div className="max-w-4xl mx-auto">
-        <h1
-          className="text-2xl font-bold mb-2"
-          style={{ color: COLORS.primaryDark, fontFamily: FONTS.heading }}
-        >
-          Events
-        </h1>
-        <p className="text-sm" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
-          View and manage upcoming clean-up events.
-        </p>
-      </div>
-    </main>
-  );
-}
-
 export default function StaffRouter() {
   return (
     <div style={{ backgroundColor: COLORS.offWhite }}>
@@ -289,9 +253,7 @@ export default function StaffRouter() {
         <div className="flex-1 sticky top-14 max-h-[calc(100vh-56px)] overflow-y-auto">
           <Routes>
             <Route index element={<StaffOverview />} />
-            <Route path="content" element={<StaffContent />} />
             <Route path="reports" element={<StaffReports />} />
-            <Route path="events" element={<StaffEvents />} />
           </Routes>
         </div>
         <StaffRightSidebar />

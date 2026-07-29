@@ -4,14 +4,11 @@ import { useAuth } from '../components/shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
 import userIcon from '../assets/user.png';
 import homeIcon from '../assets/homeicon.png';
-import postIcon from '../assets/posticon.png';
 import statusIcon from '../assets/statusicon.png';
 
 const navItems = [
   { to: '/staff/dashboard', label: 'Overview', icon: homeIcon, end: true },
-  { to: '/staff/dashboard/content', label: 'Content', icon: postIcon },
   { to: '/staff/dashboard/reports', label: 'Reports', icon: statusIcon },
-  { to: '/staff/dashboard/events', label: 'Events', icon: statusIcon },
 ];
 
 export default function StaffLeftSidebar() {

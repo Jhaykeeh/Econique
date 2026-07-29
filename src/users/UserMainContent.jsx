@@ -5,7 +5,7 @@ import userIcon from '../assets/user.png';
 import PostCard from './PostCard';
 
 export default function UserMainContent() {
-  const { user } = useAuth();
+  const { user, incrementPostCount, addLikes } = useAuth();
   const displayName = user?.name || 'User';
 
   const [posts, setPosts] = useState([]);
@@ -22,6 +22,7 @@ export default function UserMainContent() {
     if (!text && !photoPreview) return;
     const area = selectedArea === 'Others' ? customArea.trim() : selectedArea;
     setPosts([{ id: Date.now(), text, photo: photoPreview, area, caption: caption.trim(), status: 'Pending', time: 'Just now' }, ...posts]);
+    incrementPostCount();
     setModalText('');
     setPhotoPreview(null);
     setSelectedArea('');
@@ -266,6 +267,7 @@ export default function UserMainContent() {
             time={post.time}
             status={post.status}
             initialLikes={post.likes}
+            onLike={addLikes}
           />
         ))}
         {/* Mock Posts */}

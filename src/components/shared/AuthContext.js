@@ -9,9 +9,9 @@ export function AuthProvider({ children }) {
   });
   const [role, setRole] = useState(() => localStorage.getItem('econique_role'));
 
-  const login = async (email, password, userRole) => {
+  const login = async (email, password, userRole, displayName) => {
     const mockToken = `mock-token-${userRole}-${Date.now()}`;
-    const mockUser = { email, name: email.split('@')[0] };
+    const mockUser = { email, name: displayName || email.split('@')[0], totalPosts: 0, totalLikes: 0 };
 
     localStorage.setItem('econique_token', mockToken);
     localStorage.setItem('econique_user', JSON.stringify(mockUser));
@@ -24,7 +24,25 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password, userRole) => {
-    return login(email, password, userRole);
+    return login(email, password, userRole, name);
+  };
+
+  const incrementPostCount = () => {
+    setUser(prev => {
+      if (!prev) return prev;
+      const updated = { ...prev, totalPosts: (prev.totalPosts || 0) + 1 };
+      localStorage.setItem('econique_user', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const addLikes = (n) => {
+    setUser(prev => {
+      if (!prev) return prev;
+      const updated = { ...prev, totalLikes: (prev.totalLikes || 0) + n };
+      localStorage.setItem('econique_user', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const logout = () => {
@@ -38,7 +56,7 @@ export function AuthProvider({ children }) {
   const isAuthenticated = !!user;
 
   return (
-    <AuthContext.Provider value={{ user, role, login, register, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ user, role, login, register, incrementPostCount, addLikes, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

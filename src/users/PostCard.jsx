@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
 import userIcon from '../assets/user.png';
 
-export default function PostCard({ user, text, area, caption, photo, time, status: initialStatus, role, onStatusUpdate, initialLikes = 0, proofUrl: initialProofUrl }) {
+export default function PostCard({ user, text, area, caption, photo, time, status: initialStatus, role, onStatusUpdate, initialLikes = 0, proofUrl: initialProofUrl, onLike }) {
   const [status, setStatus] = useState(initialStatus || 'Pending');
   const [likes, setLikes] = useState(initialLikes);
   const [liked, setLiked] = useState(false);
@@ -45,8 +45,10 @@ export default function PostCard({ user, text, area, caption, photo, time, statu
   const isPending = status === 'Pending';
 
   const handleLike = () => {
-    setLiked(!liked);
-    setLikes((prev) => (liked ? prev - 1 : prev + 1));
+    const willBeLiked = !liked;
+    setLiked(willBeLiked);
+    setLikes((prev) => (willBeLiked ? prev + 1 : prev - 1));
+    if (onLike) onLike(willBeLiked ? 1 : -1);
   };
 
   return (

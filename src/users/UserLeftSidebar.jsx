@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from '../components/shared/theme';
 import userIcon from '../assets/user.png';
@@ -17,6 +17,7 @@ const navItems = [
 
 export default function UserLeftSidebar() {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const displayName = user?.name || 'User';
 
@@ -43,6 +44,7 @@ export default function UserLeftSidebar() {
     >
       {/* Profile Card */}
       <div
+        onClick={() => navigate('/dashboard/profile')}
         className="flex items-center gap-3 p-3 mb-4 cursor-pointer rounded-lg transition-colors"
         style={{ backgroundColor: COLORS.offWhite }}
       >
