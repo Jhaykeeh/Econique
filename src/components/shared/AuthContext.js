@@ -5,7 +5,15 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('econique_user');
-    return saved ? JSON.parse(saved) : null;
+    const token = localStorage.getItem('econique_token');
+    if (saved && token) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.email) return parsed;
+    }
+    localStorage.removeItem('econique_user');
+    localStorage.removeItem('econique_role');
+    localStorage.removeItem('econique_token');
+    return null;
   });
   const [role, setRole] = useState(() => localStorage.getItem('econique_role'));
 
