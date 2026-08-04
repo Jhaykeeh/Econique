@@ -36,7 +36,7 @@ export default function StaffLeftSidebar() {
 
   return (
     <aside
-      className="w-64 min-h-screen p-4 flex flex-col sticky top-14"
+      className="w-64 shrink-0 p-4 flex flex-col sticky top-14 max-h-[calc(100vh-56px)] overflow-y-auto"
       style={{ backgroundColor: COLORS.white, borderRight: `1px solid ${COLORS.lightGray}` }}
     >
       {/* Profile Card */}

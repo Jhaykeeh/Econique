@@ -11,6 +11,7 @@ export default function PostCard({ user, text, area, caption, photo, time, statu
   const [showViewProof, setShowViewProof] = useState(false);
   const [proofInput, setProofInput] = useState('');
   const [proofPhotoPreview, setProofPhotoPreview] = useState(null);
+  const [showPhotoNotification, setShowPhotoNotification] = useState(false);
   const proofFileInputRef = useRef(null);
 
   const handleMarkDone = () => {
@@ -34,6 +35,11 @@ export default function PostCard({ user, text, area, caption, photo, time, statu
       reader.onloadend = () => setProofPhotoPreview(reader.result);
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleUploadPhotoClick = () => {
+    setShowPhotoNotification(true);
+    setTimeout(() => setShowPhotoNotification(false), 3000);
   };
 
   const handleRevertPending = () => {
@@ -289,7 +295,7 @@ export default function PostCard({ user, text, area, caption, photo, time, statu
                 className="hidden"
               />
               <button
-                onClick={() => proofFileInputRef.current?.click()}
+                onClick={handleUploadPhotoClick}
                 className="w-full py-2.5 mb-3 text-sm font-semibold border-2 border-dashed rounded-lg cursor-pointer transition-all"
                 style={{
                   borderColor: COLORS.mint,
@@ -300,6 +306,28 @@ export default function PostCard({ user, text, area, caption, photo, time, statu
               >
                 Upload Photo
               </button>
+
+              {/* Photo Upload Notification */}
+              {showPhotoNotification && (
+                <div
+                  className="mb-3 p-3 rounded-lg flex items-center justify-between"
+                  style={{
+                    backgroundColor: '#FFF3E0',
+                    border: `1px solid ${COLORS.warning}`,
+                  }}
+                >
+                  <span className="text-sm" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                    This Feature is not available at the moment
+                  </span>
+                  <button
+                    onClick={() => setShowPhotoNotification(false)}
+                    className="w-6 h-6 flex items-center justify-center border-none rounded-full cursor-pointer text-xs"
+                    style={{ backgroundColor: 'transparent', color: COLORS.gray }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
 
               <button
                 onClick={handleConfirmDone}

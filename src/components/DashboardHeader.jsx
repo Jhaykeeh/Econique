@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './shared/AuthContext';
 import { COLORS, FONTS, RADIUS } from './shared/theme';
-import settingsIcon from '../assets/settingsicon.png';
 import userIcon from '../assets/user.png';
 import logoutIcon from '../assets/logout.png';
 import notificationIcon from '../assets/notification.png';
@@ -275,7 +274,7 @@ export default function DashboardHeader({ role = 'user' }) {
           {/* Profile Dropdown */}
           {dropdownOpen && (
             <div
-              className="absolute top-full right-0 mt-2 w-72 overflow-hidden"
+              className="absolute top-full right-0 mt-2 w-48 overflow-hidden"
               style={{
                 backgroundColor: COLORS.white,
                 borderRadius: RADIUS.lg,
@@ -283,61 +282,6 @@ export default function DashboardHeader({ role = 'user' }) {
                 animation: 'dropdownSlide 0.25s ease',
               }}
             >
-              {/* User Info */}
-              <div
-                className="flex items-center gap-3 p-4"
-                style={{
-                  background: `linear-gradient(135deg, ${COLORS.offWhite} 0%, ${COLORS.mintLight} 100%)`,
-                }}
-              >
-                <img
-                  src={userIcon}
-                  alt={displayName}
-                  className="w-12 h-12 rounded-full object-cover"
-                  style={{ border: `3px solid ${COLORS.white}`, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold" style={{ color: COLORS.black, fontFamily: FONTS.heading }}>
-                    {displayName}
-                  </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full mt-0.5 self-start font-medium" style={{ backgroundColor: COLORS.primary, color: COLORS.white, fontFamily: FONTS.body }}>
-                    {role.charAt(0).toUpperCase() + role.slice(1)}
-                  </span>
-                </div>
-              </div>
-
-              <div className="my-1" style={{ height: '1px', backgroundColor: COLORS.lightGray }} />
-
-              {/* Menu Items */}
-              <div className="py-1">
-                <button
-                  onClick={() => { setDropdownOpen(false); navigate(role === 'staff' ? '/staff/dashboard' : '/dashboard/profile'); }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 border-none bg-transparent text-left cursor-pointer text-sm font-medium transition-all"
-                  style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                >
-                  <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: COLORS.offWhite }}>
-                    <img src={userIcon} alt="" className="w-4 h-4 object-contain" />
-                  </div>
-                  Profile
-                </button>
-                <button
-                  onClick={() => { setDropdownOpen(false); navigate(role === 'staff' ? '/staff/dashboard' : '/dashboard/settings'); }}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 border-none bg-transparent text-left cursor-pointer text-sm font-medium transition-all"
-                  style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = COLORS.offWhite)}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-                >
-                  <div className="w-8 h-8 flex items-center justify-center rounded-lg" style={{ backgroundColor: COLORS.offWhite }}>
-                    <img src={settingsIcon} alt="" className="w-4 h-4 object-contain" />
-                  </div>
-                  Settings
-                </button>
-              </div>
-
-              <div className="my-1" style={{ height: '1px', backgroundColor: COLORS.lightGray }} />
-
               <div className="py-1">
                 <button
                   onClick={handleLogout}

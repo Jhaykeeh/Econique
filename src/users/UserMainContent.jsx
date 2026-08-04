@@ -15,6 +15,7 @@ export default function UserMainContent() {
   const [selectedArea, setSelectedArea] = useState('');
   const [customArea, setCustomArea] = useState('');
   const [caption, setCaption] = useState('');
+  const [showPhotoNotification, setShowPhotoNotification] = useState(false);
   const fileInputRef = useRef(null);
 
   const handlePost = () => {
@@ -38,6 +39,11 @@ export default function UserMainContent() {
       reader.onloadend = () => setPhotoPreview(reader.result);
       reader.readAsDataURL(file);
     }
+  };
+
+  const handlePhotoClick = () => {
+    setShowPhotoNotification(true);
+    setTimeout(() => setShowPhotoNotification(false), 3000);
   };
 
   return (
@@ -228,7 +234,7 @@ export default function UserMainContent() {
                     className="hidden"
                   />
                   <button
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={handlePhotoClick}
                     className="flex items-center gap-1.5 px-3 py-1.5 border-none rounded-lg cursor-pointer text-sm font-medium transition-colors"
                     style={{ backgroundColor: COLORS.offWhite, color: COLORS.primary, fontFamily: FONTS.body }}
                   >
@@ -251,6 +257,28 @@ export default function UserMainContent() {
                   </button>
                 </div>
               </div>
+
+              {/* Photo Upload Notification */}
+              {showPhotoNotification && (
+                <div
+                  className="mx-4 mb-4 p-3 rounded-lg flex items-center justify-between"
+                  style={{
+                    backgroundColor: '#FFF3E0',
+                    border: `1px solid ${COLORS.warning}`,
+                  }}
+                >
+                  <span className="text-sm" style={{ color: COLORS.darkGray, fontFamily: FONTS.body }}>
+                    This Feature is not available at the moment
+                  </span>
+                  <button
+                    onClick={() => setShowPhotoNotification(false)}
+                    className="w-6 h-6 flex items-center justify-center border-none rounded-full cursor-pointer text-xs"
+                    style={{ backgroundColor: 'transparent', color: COLORS.gray }}
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
